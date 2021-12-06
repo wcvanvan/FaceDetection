@@ -11,7 +11,7 @@ using namespace std;
 template<typename T>
 class Matrix {
 public:
-    int rows{}, cols{};
+    size_t rows{}, cols{};
     int channels{};
     int *ref_count{nullptr};
     T *data{nullptr};
@@ -21,7 +21,7 @@ public:
 
     Matrix<T>() = default;
 
-    Matrix<T>(int _rows, int _cols, int _channels, T *_data = nullptr);
+    Matrix<T>(size_t _rows, size_t _cols, int _channels, T *_data = nullptr);
 
     Matrix<T>(Matrix &m);
 
@@ -63,7 +63,7 @@ public:
 };
 
 template<typename T>
-Matrix<T>::Matrix(int _rows, int _cols, int _channels, T *_data) {
+Matrix<T>::Matrix(size_t _rows, size_t _cols, int _channels, T *_data) {
     rows = _rows;
     cols = _cols;
     row_start = 0, row_end = rows - 1;

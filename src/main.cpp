@@ -2,21 +2,21 @@
 
 #include <cstring>
 #include <iostream>
-#include "mat_mul.hpp"
-#include "face_binary_cls.hpp"
-#include "convolution.hpp"
-
-using namespace std;
 #include <opencv2/opencv.hpp>
+#include "cnn_network.hpp"
 #include "matrix.hpp"
+using namespace std;
+
 
 int main() {
     cv::Mat mat = cv::imread("/mnt/d/Projects/CNN/pics/face.jpg");
+    cv::cvtColor(mat, mat, cv::COLOR_BayerRG2RGB);
     cv::Mat img;
-    mat.convertTo(img, CV_32FC3, 1.0/255.0);
+    mat.convertTo(img, CV_32FC3, 1.0 / 255.0);
     if (img.data != nullptr) {
-        std::cout << typeid(img.data).name() << std::endl;
-//        Matrix<float> matrix(img.rows, img.cols, img.channels(), reinterpret_cast<float *>(img.data));
+        Matrix<float> matrix(img.rows, img.cols, img.channels(), reinterpret_cast<float *>(img.data));
+        float result_a, result_b;
+        build_network(matrix, result_a, result_b);
     } else {
         std::cout << "No pic" << std::endl;
     }
