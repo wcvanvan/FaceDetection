@@ -1,8 +1,12 @@
 #pragma once
-
+#define _GLIBCXX_USE_CXX11_ABI 0
 #include <cstring>
 #include <iostream>
-#include <opencv2/opencv.hpp>
+//#include <opencv2/opencv.hpp>
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
 #include "cnn_network.hpp"
 #include "matrix.hpp"
 using namespace std;
@@ -10,13 +14,13 @@ using namespace std;
 
 int main() {
     cv::Mat mat = cv::imread("/mnt/d/Projects/CNN/pics/face.jpg");
-    cv::cvtColor(mat, mat, cv::COLOR_BayerRG2RGB);
-    cv::Mat img;
-    mat.convertTo(img, CV_32FC3, 1.0 / 255.0);
-    if (img.data != nullptr) {
-        Matrix<float> matrix(img.rows, img.cols, img.channels(), reinterpret_cast<float *>(img.data));
-        float result_a, result_b;
-        build_network(matrix, result_a, result_b);
+//    cv::cvtColor(mat, mat, cv::COLOR_BayerRG2RGB);
+//    cv::Mat img;
+//    mat.convertTo(img, CV_32FC3, 1.0 / 255.0);
+    if (mat.data != nullptr) {
+//        Matrix<float> matrix(img.rows, img.cols, img.channels(), reinterpret_cast<float *>(img.data));
+//        float result_a, result_b;
+//        build_network(matrix, result_a, result_b);
     } else {
         std::cout << "No pic" << std::endl;
     }
