@@ -5,10 +5,16 @@
 #include "convolution.hpp"
 #include "matrix.hpp"
 #include "max_pooling.hpp"
+#include <fstream>
 
 bool build_network(Matrix<float> &data_im, float &result_a, float &result_b) {
+    ofstream file(R"(D:\Projects\SimpleCNN\data\data.txt)", ios::out);
     Matrix<float> result_1c(64, 64, 16);
     convolution(data_im, conv_params[0], result_1c);
+    for (size_t i = 0; i < 64*64*16; i++)
+    {
+        file << result_1c.data[i] << " ";
+    }
     Matrix<float> result_1p(32, 32, 16);
     max_pooling(result_1c, result_1p);
     Matrix<float> result_2c(30, 30, 32);
