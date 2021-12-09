@@ -1,7 +1,8 @@
 #pragma once
-#include <immintrin.h>
 #include "matrix.hpp"
 #include "face_binary_cls.hpp"
+#include "neon_replace.hpp"
+
 bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<float>& result_matrix);
 
 bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<float>& result_matrix) {

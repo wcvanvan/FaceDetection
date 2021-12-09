@@ -1,5 +1,4 @@
 #pragma once
-
 #include "face_binary_cls.hpp"
 #include <opencv2/opencv.hpp>
 #include "convolution.hpp"

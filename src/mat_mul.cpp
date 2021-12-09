@@ -1,12 +1,13 @@
 #pragma once
-#include <cmath>
-#include <immintrin.h>
 #include <cstring>
 #include <iostream>
+#include "neon_replace.hpp"
 
 #define A(i, j) A[(i)*K + (j)]
 #define B(i, j) B[(i)*N + (j)]
 #define C(i, j) C[(i)*N + (j)]
+
+using namespace std;
 
 void mul_conv(const float* A, const float* B, float* C, int M, int N, int K);
 
