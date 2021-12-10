@@ -1,3 +1,4 @@
+#pragma once
 #if defined(__arm__) || defined(__aarch64__) || defined(_M_ARM) || defined(_M_ARM64)
 #include <arm_neon.h>
 #define __m128 float32x4_t

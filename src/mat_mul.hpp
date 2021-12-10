@@ -16,9 +16,6 @@ void addDot_4x4(const float* A, float* B, float* C, int M, int N, int K);
 void addDot_8x8(const float* A, float* B, float* C, int M, int N, int K);
 
 void mul_conv(const float* conv_core, const float* data_col, float* result_matrix, int M, int N, int K) {
-	if (N % 4 != 0) {
-		// 解决内存对齐问题
-	}
 	int vectors_in_array = 10;
 	int original_vectors_in_array = vectors_in_array;
 	for (int vector_array_count = 0;

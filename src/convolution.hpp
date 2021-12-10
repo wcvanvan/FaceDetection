@@ -1,6 +1,7 @@
 #pragma once
 #include <opencv2/opencv.hpp>
 #include "matrix.hpp"
+#include "face_binary_cls.hpp"
 #include <cstring>
 
 bool im2col(Matrix<float>& data_im, conv_param& param, float* data_col);
@@ -21,16 +22,17 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 	float* data_ptr = result_matrix.data_start;
 	for (int out_channel = 0; out_channel < param.out_channels; ++out_channel) {
 		float* p_conv_core_weight = &param.p_weight[out_channel * kernel_area * param.in_channels];
-		auto conv_core = new Matrix<float>(1, kernel_area * param.in_channels, 1, p_conv_core_weight);
-		conv_core->isStaticData = true;
+		
+		//auto conv_core_mat = new Matrix<float>(1, kernel_area * param.in_channels, 1, p_conv_core_weight);
+		//conv_core_mat->isStaticData = true; // don't need to delete the data during destruction
 		float* bias = new float[output_area];
 		fill(bias, bias + output_area - 1, param.p_bias[out_channel]);
-		auto channel = new Matrix<float>(1, output_w * output_h, 1, bias);
-		*channel = *channel + *conv_core * *data_col_mat;
-		memcpy(data_ptr, channel->data, output_area * sizeof(float));
-		data_ptr += output_area;
-		delete conv_core;
-		delete channel;
+		//auto channel_mat = new Matrix<float>(1, output_w * output_h, 1, bias);
+		//*channel_mat = *channel_mat + *conv_core_mat * *data_col_mat;
+		//memcpy(data_ptr, channel_mat->data, output_area * sizeof(float));
+		//data_ptr += output_area;
+		//delete conv_core_mat;
+		//delete channel_mat;
 	}
 	delete data_col_mat;
 }
