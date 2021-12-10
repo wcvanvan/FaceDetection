@@ -22,4 +22,5 @@ bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<
 	for (int i = 0; i < 8; ++i) {
 		result_matrix.data_start[i / 4] += result[i];
 	}
+	return true;
 }

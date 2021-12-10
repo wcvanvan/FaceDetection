@@ -89,7 +89,7 @@ void Matrix<T>::create(T* _data) {
 		return;
 	}
 	if (_data == nullptr) {
-		data = new T[rows * cols * channels];
+		data = new T[rows * cols * channels] {};
 	}
 	else {
 		data = _data;
@@ -318,7 +318,7 @@ Matrix<T>& Matrix<T>::operator*(Matrix& m) {
 			for (int k = 0; k < this->colsROI; k++) {
 				for (int j = 0; j < m.colsROI; j++) {
 					mat->data_start[i * mat->cols + j] +=
-						this->data_start[i + this->colsROI + k] * m.data_start[k * m.colsROI + j];
+						this->data_start[i * this->colsROI + k] * m.data_start[k * m.colsROI + j];
 				}
 			}
 		}
