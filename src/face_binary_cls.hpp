@@ -37,6 +37,7 @@ conv_param conv_params[4] = {
 		{1, 2, 3, 3, 16, conv0_weight, conv0_bias},
 		{0, 1, 3, 16, 32, conv1_weight, conv1_bias},
 		{1, 2, 3, 32, 32, conv2_weight, conv2_bias},
+		{1,2,3,1,1,conv3_weight, conv0_bias}
 };
 fc_param fc_params[1] = {
 		{2048, 2, fc0_weight, fc0_bias}
