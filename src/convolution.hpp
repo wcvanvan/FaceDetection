@@ -4,11 +4,15 @@
 #include "face_binary_cls.hpp"
 #include <cstring>
 
+int get_highest_bit(float f) {
+	char* c = reinterpret_cast<char*>(&f);
+	return (*c >> 31) & 1;
+}
+
 bool im2col(Matrix<float>& data_im, conv_param& param, float* data_col);
 
 void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& result_matrix);
 
-void fully_connect(Matrix<float>& data_im, fc_param& param, Matrix<float>& result_matrix);
 
 void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& result_matrix) {
 	const size_t output_h = (data_im.rowsROI + 2 * param.pad - param.kernel_size) / param.stride + 1;
@@ -28,29 +32,21 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 		float* bias = new float[output_area];
 		fill(bias, bias + output_area, param.p_bias[out_channel]);
 		auto channel_mat = new Matrix<float>(1, output_w * output_h, 1, bias);
-		//for (int i = 0; i < conv_core_mat->rows; i++)
-		//{
-		//	for (int j = 0; j < conv_core_mat->cols; j++)
-		//	{
-		//		cout << conv_core_mat->data[i * conv_core_mat->cols + j] << " ";
-		//	}
-		//	cout << endl;
-		//}
-		//for (int i = 0; i < data_col_mat->rows; i++)
-		//{
-		//	for (int j = 0; j < data_col_mat->cols; j++)
-		//	{
-		//		cout << data_col_mat->data[i * data_col_mat->cols + j] << " ";
-		//	}
-		//	cout << endl;
-		//}
-		//*channel_mat = *channel_mat + *conv_core_mat * *data_col_mat;
 		*channel_mat = *channel_mat + *conv_core_mat * *data_col_mat;
-		
 		memcpy(data_ptr, channel_mat->data, output_area * sizeof(float));
 		data_ptr += output_area;
 		delete conv_core_mat;
 		delete channel_mat;
+	}
+	for (size_t element = 0; element < output_area * param.out_channels; element++)
+	{
+		//if (get_highest_bit(result_matrix.data_start[element])) {
+		//	result_matrix.data_start[element] = 0;
+		//}
+		if (result_matrix.data_start[element] < 0) {
+			result_matrix.data_start[element] = 0;
+		}
+		//result_matrix.data_start[element] = result_matrix.data_start[element] > 0 ? result_matrix.data_start[element] : 0;
 	}
 	delete data_col_mat;
 }
@@ -64,7 +60,6 @@ bool im2col(Matrix<float>& data_im, conv_param& param, float* data_col) {
 	for (int channel = 0; channel < param.in_channels; ++channel) {
 		for (int kernel_row = 0; kernel_row < param.kernel_size; ++kernel_row) {
 			for (int kernel_col = 0; kernel_col < param.kernel_size; ++kernel_col) {
-				//cout << kernel_row << " " << kernel_col << endl;
 				int input_row = kernel_row - param.pad;
 				for (int output_row = 0; output_row < output_h; ++output_row) {
 					// 该行超界

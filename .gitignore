@@ -2,5 +2,4 @@
 /.vs
 /out
 /CMakePresets.json
-/CMakeLists.txt
 /data
