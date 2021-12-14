@@ -2,6 +2,7 @@
 /.vs
 /out
 /CMakePresets.json
+/CMakeLists.txt
 /data
 /CMakeLists.txt
 /cmake-build-debug
