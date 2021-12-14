@@ -1,4 +1,5 @@
 #pragma once
+#include <cmath>
 #include "matrix.hpp"
 #include "face_binary_cls.hpp"
 #include "neon_replace.hpp"
@@ -7,8 +8,8 @@ bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<
 
 bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<float>& result_matrix) {
 	float result[8];
-	fill(result, &result[3], param.p_bias[0]);
-	fill(&result[4], &result[7], param.p_bias[1]);
+	fill(result, &result[4], param.p_bias[0]);
+	fill(&result[4], &result[8], param.p_bias[1]);
 	for (int core_index = 0; core_index < param.out_features; ++core_index) {
 		__m128 sum_vector = _mm_set_ps(0., 0., 0., 0.);
 		for (int vector_index = 0; vector_index < param.in_features / 4; ++vector_index) {
@@ -22,5 +23,11 @@ bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<
 	for (int i = 0; i < 8; ++i) {
 		result_matrix.data_start[i / 4] += result[i];
 	}
+	// softmax
+	float f1 = exp(result_matrix.data_start[0]);
+	float f2 = exp(result_matrix.data_start[1]);
+	float denominator = f1 + f2;
+	result_matrix.data_start[0] = f1 / denominator;
+	result_matrix.data_start[1] = f2 / denominator;
 	return true;
 }

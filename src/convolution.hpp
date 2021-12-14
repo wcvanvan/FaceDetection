@@ -3,11 +3,8 @@
 #include "matrix.hpp"
 #include "face_binary_cls.hpp"
 #include <cstring>
+#include <algorithm>
 
-int get_highest_bit(float f) {
-	char* c = reinterpret_cast<char*>(&f);
-	return (*c >> 31) & 1;
-}
 
 bool im2col(Matrix<float>& data_im, conv_param& param, float* data_col);
 
@@ -33,19 +30,22 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 		fill(bias, bias + output_area, param.p_bias[out_channel]);
 		auto channel_mat = new Matrix<float>(1, output_w * output_h, 1, bias);
 		*channel_mat = *channel_mat + *conv_core_mat * *data_col_mat;
+		//if (out_channel == 0 && result_matrix.rows == 30) {
+		//	cout << (*conv_core_mat * *data_col_mat).data[0] << endl;
+		//	cout << channel_mat->data[0] << endl;
+		//}
 		memcpy(data_ptr, channel_mat->data, output_area * sizeof(float));
 		data_ptr += output_area;
 		delete conv_core_mat;
 		delete channel_mat;
 	}
+	cout << endl;
 	for (size_t element = 0; element < output_area * param.out_channels; element++)
 	{
 		//if (get_highest_bit(result_matrix.data_start[element])) {
 		//	result_matrix.data_start[element] = 0;
 		//}
-		if (result_matrix.data_start[element] < 0) {
-			result_matrix.data_start[element] = 0;
-		}
+		result_matrix.data_start[element] = max(result_matrix.data_start[element], 0.f);
 		//result_matrix.data_start[element] = result_matrix.data_start[element] > 0 ? result_matrix.data_start[element] : 0;
 	}
 	delete data_col_mat;
