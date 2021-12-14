@@ -35,14 +35,17 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 		delete conv_core_mat;
 		delete channel_mat;
 	}
-	cout << endl;
-	for (size_t element = 0; element < output_area * param.out_channels; element++)
-	{
-		//if (get_highest_bit(result_matrix.data_start[element])) {
-		//	result_matrix.data_start[element] = 0;
-		//}
-		result_matrix.data_start[element] = max(result_matrix.data_start[element], 0.f);
-		//result_matrix.data_start[element] = result_matrix.data_start[element] > 0 ? result_matrix.data_start[element] : 0;
+	float* ptr_start{}, * ptr_end{}, * ptr = result_matrix.data_start;
+	for (size_t element = 0; element < output_area * param.out_channels; element++) {
+		if (*ptr < -FLT_EPSILON && ptr_start == nullptr) {
+			ptr_start = ptr;
+		}
+		else if (ptr_start != nullptr && *ptr > FLT_EPSILON) {
+			ptr_end = ptr;
+			fill(ptr_start, ptr_end, 0);
+			ptr_start = nullptr, ptr_end = nullptr;
+		}
+		ptr++;
 	}
 	delete data_col_mat;
 }
