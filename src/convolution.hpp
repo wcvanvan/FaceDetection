@@ -30,10 +30,6 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 		fill(bias, bias + output_area, param.p_bias[out_channel]);
 		auto channel_mat = new Matrix<float>(1, output_w * output_h, 1, bias);
 		*channel_mat = *channel_mat + *conv_core_mat * *data_col_mat;
-		//if (out_channel == 0 && result_matrix.rows == 30) {
-		//	cout << (*conv_core_mat * *data_col_mat).data[0] << endl;
-		//	cout << channel_mat->data[0] << endl;
-		//}
 		memcpy(data_ptr, channel_mat->data, output_area * sizeof(float));
 		data_ptr += output_area;
 		delete conv_core_mat;

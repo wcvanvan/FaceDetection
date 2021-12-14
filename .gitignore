@@ -3,5 +3,5 @@
 /out
 /CMakePresets.json
 /data
-/CMakeLists.txt
 /cmake-build-debug
+/CMakeLists.txt
