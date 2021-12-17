@@ -23,7 +23,7 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 	float* data_ptr = result_matrix.data_start;
 	for (int out_channel = 0; out_channel < param.out_channels; ++out_channel) {
 		float* p_conv_core_weight = &param.p_weight[out_channel * kernel_area * param.in_channels];
-		
+
 		auto conv_core_mat = new Matrix<float>(1, kernel_area * param.in_channels, 1, p_conv_core_weight);
 		conv_core_mat->isStaticData = true; // don't need to delete the data during destruction
 		float* bias = new float[output_area];

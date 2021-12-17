@@ -9,13 +9,13 @@
 
 using namespace std;
 
-void mul_conv(const float* A, const float* B, float* C, int M, int N, int K);
+void mul_1xk(const float* A, const float* B, float* C, int M, int N, int K);
 
 void addDot_4x4(const float* A, float* B, float* C, int M, int N, int K);
 
 void addDot_8x8(const float* A, float* B, float* C, int M, int N, int K);
 
-void mul_conv(const float* conv_core, const float* data_col, float* result_matrix, int M, int N, int K) {
+void mul_1xk(const float* A, const float* B, float* C, int M, int N, int K) {
 	int vectors_in_array = 10;
 	int original_vectors_in_array = vectors_in_array;
 	for (int vector_array_count = 0;
@@ -26,17 +26,17 @@ void mul_conv(const float* conv_core, const float* data_col, float* result_matri
 		__m128* vector_array = new __m128[vectors_in_array];
 		memset(vector_array, 0, sizeof(__m128) * vectors_in_array);
 		for (int core_col = 0; core_col < K; ++core_col) {
-			float core = conv_core[core_col];
+			float core = A[core_col];
 			__m128 core_value_scalar = _mm_set_ps(core, core, core, core);
 			for (int vector_count = 0; vector_count < vectors_in_array; ++vector_count) {
-				__m128 vector = _mm_load_ps(&data_col[core_col * N + vector_count * 4 +
+				__m128 vector = _mm_load_ps(&B[core_col * N + vector_count * 4 +
 					vector_array_count * 4 * original_vectors_in_array]);
 				__m128 mul_result = _mm_mul_ps(core_value_scalar, vector);
 				vector_array[vector_count] = _mm_add_ps(vector_array[vector_count], mul_result);
 			}
 		}
 		for (int vector_in_array = 0; vector_in_array < vectors_in_array; ++vector_in_array) {
-			_mm_store_ps(&result_matrix[vector_in_array * 4 + vector_array_count * 4 * original_vectors_in_array],
+			_mm_store_ps(&C[vector_in_array * 4 + vector_array_count * 4 * original_vectors_in_array],
 				vector_array[vector_in_array]);
 		}
 	}

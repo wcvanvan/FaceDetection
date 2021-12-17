@@ -1,6 +1,5 @@
 #pragma once
-#if defined(_M_ARM64)
-//#if defined(__arm__) || defined(__aarch64__) || defined(_M_ARM) || defined(_M_ARM64)
+#if defined(__arm__) || defined(__aarch64__) || defined(_M_ARM) || defined(_M_ARM64)
 #include <arm_neon.h>
 #define __m128 float32x4_t
 #define	_mm_load_ps vld1q_f32
