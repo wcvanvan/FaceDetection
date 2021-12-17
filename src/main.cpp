@@ -22,17 +22,17 @@ int main() {
 	memcpy(&mat_data[channel_size*2], mats[2].ptr<float>(0), sizeof(float) * channel_size);
 	float result_bg = 0., result_face = 0.;
 
-	time_t start_time, end_time;
+	clock_t start_time, end_time;
 	if (mat_data != nullptr) {
 		Matrix<float> matrix(img.rows, img.cols, img.channels(), mat_data);
-		start_time = time(0);
+		start_time = clock();
 		build_network(matrix, result_bg, result_face);
-		end_time = time(0);
+		end_time = clock();
 	}
 	else {
 		std::cout << "No pic" << std::endl;
 	}
 	cout << "background score: " << result_bg << ", " << "face score: " << result_face << endl;
-	cout << "takes time: " << (end_time - start_time)  << "ms" << endl;
+	cout << "takes time: " << double(end_time - start_time) / (CLOCKS_PER_SEC/1000) << "ms" << endl;
 }
 
