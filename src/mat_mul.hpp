@@ -26,7 +26,7 @@ void mul_1xk(const float* A, const float* B, float* C, int M, int N, int K) {
 		__m128* vector_array = new __m128[vectors_in_array];
 		memset(vector_array, 0, sizeof(__m128) * vectors_in_array);
 		for (int core_col = 0; core_col < K; ++core_col) {
-			__m128 core_value_scalar = _mm_load1_ps(&A[core_col]);
+			__m128 core_value_scalar = _mm_set1_ps(A[core_col]);
 			for (int vector_count = 0; vector_count < vectors_in_array; ++vector_count) {
 				__m128 vector = _mm_load_ps(&B[core_col * N + vector_count * 4 +
 					vector_array_count * 4 * original_vectors_in_array]);

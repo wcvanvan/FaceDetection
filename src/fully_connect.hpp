@@ -10,9 +10,8 @@ bool fully_connect(const Matrix<float>& matrix_in, fc_param param, const Matrix<
 	float result[8];
 	fill(result, &result[4], param.p_bias[0]);
 	fill(&result[4], &result[8], param.p_bias[1]);
-	float f = 0.0f;
 	for (int core_index = 0; core_index < param.out_features; ++core_index) {
-		__m128 sum_vector = _mm_load1_ps(&f);
+		__m128 sum_vector = _mm_set1_ps(0.0f);
 		for (int vector_index = 0; vector_index < param.in_features / 4; ++vector_index) {
 			__m128 vector_matrix_in = _mm_load_ps(&matrix_in.data_start[vector_index * 4]);
 			__m128 vector_weight = _mm_load_ps(&param.p_weight[vector_index * 4 + core_index * param.in_features]);
