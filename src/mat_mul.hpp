@@ -9,13 +9,13 @@
 
 using namespace std;
 
-void mul_1xk(const float* A, const float* B, float* C, int M, int N, int K);
+void mul_1xk(const float* A, const float* B, float* C, int N, int K);
 
 void addDot_4x4(const float* A, float* B, float* C, int M, int N, int K);
 
 void addDot_8x8(const float* A, float* B, float* C, int M, int N, int K);
 
-void mul_1xk(const float* A, const float* B, float* C, int M, int N, int K) {
+void mul_1xk(const float* A, const float* B, float* C, int N, int K) {
 	int vectors_in_array = 10;
 	int original_vectors_in_array = vectors_in_array;
 	for (int vector_array_count = 0;

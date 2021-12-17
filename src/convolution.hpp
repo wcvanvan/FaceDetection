@@ -12,6 +12,9 @@ void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& resul
 
 
 void convolution(Matrix<float>& data_im, conv_param& param, Matrix<float>& result_matrix) {
+	if (param.kernel_size > data_im.rowsROI + 2 * param.pad) {
+		throw "the kernel size is too large";
+	}
 	const size_t output_h = (data_im.rowsROI + 2 * param.pad - param.kernel_size) / param.stride + 1;
 	const size_t output_w = (data_im.colsROI + 2 * param.pad - param.kernel_size) / param.stride + 1;
 	const size_t output_area = output_h * output_w;

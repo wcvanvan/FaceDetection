@@ -89,7 +89,7 @@ void Matrix<T>::create(T* _data) {
 		return;
 	}
 	if (_data == nullptr) {
-		data = new T[rows * cols * channels] {};
+		data = new T[rows * cols * channels]{};
 	}
 	else {
 		data = _data;
@@ -281,7 +281,7 @@ Matrix<T>& Matrix<T>::operator*(Matrix& m) {
 	}
 	auto* mat = new Matrix<T>(this->rowsROI, m.colsROI, m.channels);
 	if (this->rowsROI == 1) {
-		mul_1xk(this->data_start, m.data_start, mat->data_start, this->rowsROI, m.colsROI, this->colsROI);
+		mul_1xk(this->data_start, m.data_start, mat->data_start, m.colsROI, this->colsROI);
 	}
 	else if (m.rowsROI >= 128) {
 		// dividing the whole matrix into pow(bigBlockCountInRow, 2)'s big blocks.
