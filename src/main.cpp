@@ -10,7 +10,7 @@ using namespace std;
 
 
 int main() {
-	cv::Mat img = cv::imread(R"(D:\Projects\SimpleCNN\pics\face.jpg)");
+	cv::Mat img = cv::imread(R"(D:\Projects\SimpleCNN\pics\bg.jpg)");
 	cv::resize(img, img, cv::Size(128, 128));
 	img.convertTo(img, CV_32FC3, 1.0 / 255.0);
 	cv::Mat mats[3];
