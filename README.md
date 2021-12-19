@@ -2,7 +2,6 @@
 
 function: capable of distinguishing human and background pictures, and give the possibilities of both
 
-[toc]
 
 # General structure
 
@@ -86,10 +85,4 @@ I also used SIMD to accelerate this layer in order to calculate the dot product 
 # Test on ARM
 
 The self-made Universal Intrinsics runs properly on ARM. But on ARM it's about 8 seconds slower than on X86
-
-# Sample Results
-
-![face](D:\Work\还在上的课\C++\Project5\pics\face.JPG)
-
-![bg](D:\Work\还在上的课\C++\Project5\pics\bg.JPG)
 
