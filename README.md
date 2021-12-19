@@ -20,7 +20,7 @@ after implementing im2col, all I need is to multiply a 1 x K matrix with a K x N
 
 ## Matrix multiplication
 
-<img src="D:\Work\还在上的课\C++\Project5\pics\mul.JPG" alt="mul" style="zoom:50%;" />
+![mul](https://github.com/wcvanvan/PictureClassification/blob/main/samples/illustration/mul.JPG)
 
 To do the multiplication of 1 x K with K x N
 
@@ -45,15 +45,13 @@ I used the idea of macros to achieve crossed-platform SIMD all using the names i
 
 In SSE, there are totally 16 registers. Each register holds 4 single precision floating-point numbers.  In matrix B, I put K * 40 numbers into 1 group, and I do the multiplication group by group. If there less than 40 numbers left, numbers in 1 group will be adjusted.
 
-![partition](D:\Work\还在上的课\C++\Project5\pics\partition.JPG)
+![partition](https://github.com/wcvanvan/PictureClassification/blob/main/samples/illustration/partition.JPG)
 
 As the picture shown below, I calculate multiplication result of 1 group row by row and eventually add them up.
 
 I use element a in Mat A to multiply row a in Mat B, element b to multiply row b and so on, and they will be put into an array. I manage to avoid the number of registers to go above 16.
 
-![mul_order](D:\Work\还在上的课\C++\Project5\pics\mul_order.JPG)
-
-
+![mul_order](https://github.com/wcvanvan/PictureClassification/blob/main/samples/illustration/mul_order.JPG)
 
 There could be memory alignment issues in SIMD when N cannot be divided by 4. It could be solved by "filling" the gap by 0, but the input image must be 128 x 128, so it won't cause trouble
 
