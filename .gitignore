@@ -1,6 +1,6 @@
-/pics
 /.vs
 /out
 /CMakePresets.json
 /data
 /cmake-build-debug
+/README.md

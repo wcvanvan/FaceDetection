@@ -1,5 +1,4 @@
 #pragma once
-#define _GLIBCXX_USE_CXX11_ABI 0
 #include <cstring>
 #include <iostream>
 #include <opencv2/opencv.hpp>
@@ -8,9 +7,8 @@
 #include "matrix.hpp"
 using namespace std;
 
-
 int main() {
-	cv::Mat img = cv::imread(R"(D:\Projects\SimpleCNN\pics\bg.jpg)");
+	cv::Mat img = cv::imread("D:\\Projects\\PictureClassification\\pics\\lena.jpg");
 	cv::resize(img, img, cv::Size(128, 128));
 	img.convertTo(img, CV_32FC3, 1.0 / 255.0);
 	cv::Mat mats[3];
