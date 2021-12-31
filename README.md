@@ -58,7 +58,7 @@ There could be memory alignment issues in SIMD when N cannot be divided by 4. It
 
 ## Comparison with openblas
 
-My algorithm is 3 times slower than openblas when doing multiplication of 1 x 10^4 with 10^4 x 10^5. But it's of the same speed when O3 is on
+My algorithm is of the same speed with OpenBLAS
 
 
 
