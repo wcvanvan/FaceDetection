@@ -15,7 +15,8 @@ matrix multiplication imitates algorithm from GotoBLAS
 im2col algorithm from caffe is implemented to turn convolution operation into matrix multiplication
 
 ## How to use
-The input image should be resize to 3x128x128 (channel, height, width), which will be turned into 2 numbers in the end, one indicates the possibility that the picture is a human face, the other indicates the possibility of scenery.
+The input image should be resize to 3x128x128 (channel, height, width)
+The program will proffer two numbers after running, one indicates the possibility that the picture is a human face, the other indicates the possibility of scenery.
 
 
 
