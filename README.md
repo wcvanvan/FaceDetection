@@ -1,5 +1,4 @@
-# Picture Classification
-
+# Human Identification
 The forward part of a CNN, using the model trained by library "libfacedetect" (written by my teacher)
 
 capable of distinguishing human and scenery pictures and giving the reliability (possibility) of the test
