@@ -1,4 +1,4 @@
-# Human Identification
+# Face Detection
 The forward propagation part of a CNN, using the model trained by the library "<a href="https://github.com/ShiqiYu/libfacedetection">libfacedetection</a>" (written by my teacher)
 
 capable of distinguishing human and scenery pictures and giving the reliability (possibility) of the test
