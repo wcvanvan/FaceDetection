@@ -1,7 +1,7 @@
 # Image Classification for Face
-The forward propagation part of a CNN, using the model trained by the library "<a href="https://github.com/ShiqiYu/libfacedetection">libfacedetection</a>" (written by my teacher)
+The forward propagation part of a CNN written in C++, using the model trained by the library "<a href="https://github.com/ShiqiYu/SimpleCNNbyCPP">SimpleCNNbyCPP</a>" (written by my teacher)
 
-capable of distinguishing human and scenery pictures and giving the reliability (possibility) of the test
+capable of distinguishing human and landscape photos and giving the reliability of the test
 
 This simple CNN model contains 3 convolutional layers, 2 max-pooling layers and 1 fully-connected layer.
 
