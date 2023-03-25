@@ -1,4 +1,4 @@
-# Image Classification for Face
+# Simple CNN in C++
 The forward propagation part of a CNN written in C++, using the model trained by the library "<a href="https://github.com/ShiqiYu/SimpleCNNbyCPP">SimpleCNNbyCPP</a>" (written by my teacher)
 
 capable of distinguishing human and landscape photos and giving the reliability of the test
