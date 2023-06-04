@@ -1,7 +1,7 @@
 # Simple CNN in C++
-The forward propagation part of a CNN written in C++, using the model trained by the library "<a href="https://github.com/ShiqiYu/SimpleCNNbyCPP">SimpleCNNbyCPP</a>" (written by my teacher)
+The forward propagation part of a CNN written in C++。
 
-capable of distinguishing human and landscape photos.
+It's capable of distinguishing human and landscape photos using the model trained by the library "<a href="https://github.com/ShiqiYu/SimpleCNNbyCPP">SimpleCNNbyCPP</a>" (written by my teacher).
 
 This simple CNN model contains 3 convolutional layers, 2 max-pooling layers and 1 fully-connected layer.
 
